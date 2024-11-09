@@ -21,6 +21,11 @@ app.use(cors({
 }));
 
 // Route definitions
+app.use('/',(req,res)=>{
+    return res.json(
+        "Welcome to counselling website"
+    );
+});
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
