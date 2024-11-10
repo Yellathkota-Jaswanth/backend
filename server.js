@@ -16,7 +16,7 @@ connectDB();
 
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://transcendent-zuccutto-93cc01.netlify.app/','https://zoom.us/oauth/authorize'],
+    origin: ['*','http://localhost:5173', 'https://transcendent-zuccutto-93cc01.netlify.app/','https://zoom.us/oauth/authorize'],
     credentials: true,
 }));
 
@@ -38,7 +38,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: ['http://localhost:5173','https://transcendent-zuccutto-93cc01.netlify.app/'],
+        origin: ['*'],
         methods: ['GET', 'POST'],
         credentials: true
     }
