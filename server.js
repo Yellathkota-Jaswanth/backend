@@ -7,7 +7,7 @@ const zoomRoutes = require('./routes/zoomRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const http = require('http');
 const { Server } = require('socket.io');
-const ChatMessage = require('./models/ChatMessage'); // Import ChatMessage model
+//const ChatMessage = require('./models/ChatMessage'); // Import ChatMessage model
 
 dotenv.config();
 
@@ -45,37 +45,37 @@ const io = new Server(server, {
 });
 
 // Socket.io setup
-io.on('connection', (socket) => {
-    console.log('A user connected:', socket.id);
+// io.on('connection', (socket) => {
+//     console.log('A user connected:', socket.id);
 
-    // Join room based on appointmentId for each connected user
-    socket.on('joinRoom', (appointmentId) => {
-        socket.join(appointmentId);
-        console.log(`User with ID: ${socket.id} joined room: ${appointmentId}`);
-    });
+//     // Join room based on appointmentId for each connected user
+//     socket.on('joinRoom', (appointmentId) => {
+//         socket.join(appointmentId);
+//         console.log(`User with ID: ${socket.id} joined room: ${appointmentId}`);
+//     });
 
-    // Handle incoming chat messages
-    socket.on('sendMessage', async (msg) => {
-        console.log('Message received:', msg);
+//     // Handle incoming chat messages
+//     socket.on('sendMessage', async (msg) => {
+//         console.log('Message received:', msg);
         
-        const { appointmentId, sender, recipient, message } = msg;
+//         const { appointmentId, sender, recipient, message } = msg;
 
-        // Save the message to the database
-        const newMessage = new ChatMessage({ appointmentId, sender, recipient, message });
-        try {
-            await newMessage.save();
+//         // Save the message to the database
+//         const newMessage = new ChatMessage({ appointmentId, sender, recipient, message });
+//         try {
+//             await newMessage.save();
 
-            // Emit message only to clients in the specific room (appointmentId)
-            io.to(appointmentId).emit('message', newMessage);
-        } catch (error) {
-            console.error('Error saving chat message:', error);
-        }
-    });
+//             // Emit message only to clients in the specific room (appointmentId)
+//             io.to(appointmentId).emit('message', newMessage);
+//         } catch (error) {
+//             console.error('Error saving chat message:', error);
+//         }
+//     });
 
-    socket.on('disconnect', () => {
-        console.log('A user disconnected:', socket.id);
-    });
-});
+//     socket.on('disconnect', () => {
+//         console.log('A user disconnected:', socket.id);
+//     });
+// });
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
